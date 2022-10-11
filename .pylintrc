@@ -213,8 +213,7 @@ good-names=i,
            id,
            db,
            fp,
-           df,
-           rm
+           df
 
 # Good variable names regexes, separated by a comma. If names match any regex,
 # they will always be accepted
