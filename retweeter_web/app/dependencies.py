@@ -1,1 +1,1 @@
-# Look for FastAPI docs, middlewear etc.
+# Look for FastAPI docs, middleware etc.
