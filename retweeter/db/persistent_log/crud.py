@@ -18,11 +18,7 @@ def get_recent(*, session: Session, seconds: int):
     )
     total = len(logs)
     retweeted = sum(map(operator.attrgetter("retweeted"), logs))
-    return dict(
-        total=total,
-        retweeted=retweeted,
-        retweet_canceled=total - retweeted
-    )
+    return dict(total=total, retweeted=retweeted, retweet_canceled=total - retweeted)
 
 
 def get_twitter_user(*, session: Session, twitter_user: schemas.TwitterUserGet):
@@ -30,19 +26,18 @@ def get_twitter_user(*, session: Session, twitter_user: schemas.TwitterUserGet):
     if twitter_user.id:
         user = session.get(models.TwitterUser, twitter_user.id)
     elif twitter_user.name:
-        user = session.query(models.TwitterUser).filter_by(
-            name=twitter_user.name
-        ).one_or_none()
+        user = (
+            session.query(models.TwitterUser)
+            .filter_by(name=twitter_user.name)
+            .one_or_none()
+        )
     return user
 
 
 def update_twitter_user(*, session: Session, twitter_user: schemas.TwitterUserUpdate):
     user = get_twitter_user(
         session=session,
-        twitter_user=schemas.TwitterUserGet(
-            id=twitter_user.id,
-            name=twitter_user.name
-        )
+        twitter_user=schemas.TwitterUserGet(id=twitter_user.id, name=twitter_user.name),
     )
     if not user:
         user = models.TwitterUser()

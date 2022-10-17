@@ -15,10 +15,7 @@ async def get_analytics():
 
 
 @router.get("/recent/{seconds}")
-async def get_recent(
-    seconds: int,
-    session: Session = persistent_log.database.session
-):
+async def get_recent(seconds: int, session: Session = persistent_log.database.session):
     return persistent_log.crud.get_recent(seconds=seconds, session=session)
 
 

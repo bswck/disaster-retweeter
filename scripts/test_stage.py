@@ -31,9 +31,7 @@ def setup_test_stage():
         ANALYTICS_DB_PORT=os.getenv("TEST_ANALYTICS_DB_PORT", "6379"),
     )
 
-    _test_stage = dict(
-        started_at=time.perf_counter()
-    )
+    _test_stage = dict(started_at=time.perf_counter())
 
     logger.success("Test stage has been set up successfully")
 

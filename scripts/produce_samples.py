@@ -27,8 +27,8 @@ def generate_persistent_log_samples():
                 followers_count=8557,
                 friends_count=492,
                 statuses_count=286,
-                location='GBR'
-            )
+                location='GBR',
+            ),
         ),
         # /original/test.csv#L40
         TweetLogCreate(
@@ -44,8 +44,8 @@ def generate_persistent_log_samples():
                 followers_count=2805,
                 friends_count=910,
                 statuses_count=120,
-                location='USA'
-            )
+                location='USA',
+            ),
         ),
         # /original/test.csv#L119
         TweetLogCreate(
@@ -61,8 +61,8 @@ def generate_persistent_log_samples():
                 followers_count=8976,
                 friends_count=989,
                 statuses_count=674,
-                location='POL'
-            )
+                location='POL',
+            ),
         ),
         # /original/test.csv#L2269
         TweetLogCreate(
@@ -78,8 +78,8 @@ def generate_persistent_log_samples():
                 followers_count=9705,
                 friends_count=986,
                 statuses_count=353,
-                location='ESP'
-            )
+                location='ESP',
+            ),
         ),
         # /original/test.csv#L2410
         TweetLogCreate(
@@ -95,9 +95,9 @@ def generate_persistent_log_samples():
                 followers_count=9708,
                 friends_count=987,
                 statuses_count=368,
-                location='ESP'
-            )
-        )
+                location='ESP',
+            ),
+        ),
     )
 
 
@@ -108,10 +108,7 @@ def feed_persistent_log(samples=None):
     session_maker = contextlib.contextmanager(get_session)
     for sample_tweet_log in samples:
         with session_maker() as session:
-            crud.create_tweet_log(
-                session=session,
-                tweet_log=sample_tweet_log
-            )
+            crud.create_tweet_log(session=session, tweet_log=sample_tweet_log)
             logger.success(f"Added tweet log: {sample_tweet_log}")
 
 
