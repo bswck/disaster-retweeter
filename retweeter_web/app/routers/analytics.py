@@ -1,22 +1,26 @@
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
+from sqlalchemy.orm import Session
 
-from retweeter.db.analytics.crud import get_analytics_data
-
-# Import function to query PostgreSQL
-from retweeter.db.persistent_log.crud import get_recent_seconds_stats
+from retweeter.db import analytics
+from retweeter.db import persistent_log
 
 router = APIRouter()
 
 
 @router.get("/")
-async def obtain_analytics_data():
-    return get_analytics_data()
+async def get_analytics():
+    return analytics.crud.get_analytics()
 
 
 @router.get("/recent/{seconds}")
-async def obtain_number_of_tweets_classified_in_last_n_seconds(
-    seconds, session=Depends(get_session)
+async def get_recent(
+    seconds: int,
+    session: Session = persistent_log.database.session
 ):
-    return get_recent_seconds_stats(session)
+    return persistent_log.crud.get_recent(seconds=seconds, session=session)
+
+
+def create_router():
+    return router
