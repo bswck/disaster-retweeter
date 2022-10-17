@@ -1,32 +1,31 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, DateTime, Boolean
+from sqlalchemy import Column, ForeignKey, BigInteger, BIGINT, Integer, String, DateTime, Boolean
 from sqlalchemy import text
 from sqlalchemy.orm import relationship
+
 from retweeter.db.persistent_log.database import Base
 
 
 class TwitterUser(Base):
     __tablename__ = "twitter_users"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(BigInteger, primary_key=True, index=True)
     name = Column(String)
-    url = Column(String)
     followers_count = Column(Integer)
     friends_count = Column(Integer)
     statuses_count = Column(Integer)
     location = Column(String)
+    tweet_logs = relationship("TweetLog", back_populates="user")
 
 
-class ClassificationLog(Base):
-    __tablename__ = "classification_logs"
+class TweetLog(Base):
+    __tablename__ = "tweet_logs"
 
-    id = Column(Integer, primary_key=True, index=True)
-    created_at = Column(DateTime, server_default=text("TIMEZONE('UTC', NOW())"))
+    tweet_id = Column(BigInteger, primary_key=True, index=True)
+    crawled_at = Column(DateTime, server_default=text("TIMEZONE('UTC', NOW())"))
     text = Column(String)
-    url = Column(String)
     keyword = Column(String)
     location = Column(String)
     target = Column(Boolean)
-    # this is being queried
     retweeted = Column(Boolean)
-    user_id = Column(Integer, ForeignKey("twitter_users.id"))
-    user = relationship("TwitterUser", back_populates="classification_logs")
+    user_id = Column(BigInteger, ForeignKey("twitter_users.id"))
+    user = relationship("TwitterUser", back_populates="tweet_logs")
