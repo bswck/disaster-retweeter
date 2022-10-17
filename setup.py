@@ -9,8 +9,6 @@ setup(
     long_description_content_type="text/markdown",
     author="bswck",
     packages=find_packages(exclude=["tests", ".github"]),
-    entry_points={
-        "console_scripts": ["PROJECT_NAME = PROJECT_NAME.__main__:main"]
-    },
+    entry_points={"console_scripts": ["PROJECT_NAME = PROJECT_NAME.__main__:main"]},
     extras_require={"test": ["pytest"]},
 )
