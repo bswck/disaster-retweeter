@@ -13,10 +13,14 @@ from retweeter_web.app.routers import analytics
 from retweeter_web.app.routers import logs
 
 if __debug__:
-    from test_stage import setup_test_stage
+    from scripts.test_stage import setup_test_stage
     setup_test_stage()
 
-ROUTERS = {"/logs": logs}
+ROUTERS = {
+    # Uncomment when ready
+    # "/analytics": analytics,
+    "/logs": logs
+}
 
 
 def create_app(routers):
