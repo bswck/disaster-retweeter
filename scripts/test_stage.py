@@ -5,11 +5,8 @@ import time
 
 from loguru import logger
 
-_test_stage = None
-
 
 def setup_test_stage():
-    global _test_stage
     # try to load environment variables from .env file
     try:
         import dotenv
@@ -31,18 +28,7 @@ def setup_test_stage():
         ANALYTICS_DB_PORT=os.getenv("TEST_ANALYTICS_DB_PORT", "6379"),
     )
 
-    _test_stage = dict(started_at=time.perf_counter())
-
     logger.success("Test stage has been set up successfully")
-
-
-def __getattr__(name):
-    global _test_stage
-
-    if name == "test_stage":
-        if not _test_stage:
-            setup_test_stage()
-        return _test_stage
 
 
 if __name__ == '__main__':

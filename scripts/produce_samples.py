@@ -3,7 +3,7 @@ import random
 
 from loguru import logger
 
-from scripts.test_stage import test_stage  # noqa: F401
+from scripts.test_stage import setup_test_stage
 
 from retweeter.db import persistent_log
 from retweeter.db.persistent_log.database import get_session
@@ -113,4 +113,5 @@ def feed_persistent_log(samples=None):
 
 
 if __name__ == '__main__':
+    setup_test_stage()
     feed_persistent_log()
